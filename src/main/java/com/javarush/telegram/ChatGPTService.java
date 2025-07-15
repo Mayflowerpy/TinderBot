@@ -17,7 +17,7 @@ public class ChatGPTService {
     private List<Message> messageHistory = new ArrayList<>(); //История переписки с ChatGPT - нужна для диалогов
 
     public ChatGPTService(String token) {
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("18.199.183.77", 49232));
+//        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("18.199.183.77", 49232));
         if (token.startsWith("gpt:")) {
             token = "sk-proj-" + new StringBuilder(token.substring(4)).reverse();
         }
@@ -25,7 +25,7 @@ public class ChatGPTService {
         this.chatGPT = ChatGPT.builder()
                 .apiKey(token)
                 .apiHost("https://api.openai.com/")
-                .proxy(proxy)
+//                .proxy(proxy)
                 .build()
                 .init();
     }
@@ -70,7 +70,7 @@ public class ChatGPTService {
      */
     private String sendMessagesToChatGPT(){
         ChatCompletion chatCompletion = ChatCompletion.builder()
-                .model(ChatCompletion.Model.GPT4oMini) // GPT4oMini or GPT_3_5_TURBO
+                .model(ChatCompletion.Model.GPT_3_5_TURBO) // GPT4oMini or GPT_3_5_TURBO
                 .messages(messageHistory)
                 .maxTokens(3000)
                 .temperature(0.9)
